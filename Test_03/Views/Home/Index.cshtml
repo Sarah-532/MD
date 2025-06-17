@@ -1,0 +1,115 @@
+﻿@model IEnumerable<Test_03.Models.Customer>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Customer Information System</h1>
+  
+</div>
+<form asp-action="Save" method="post" enctype="multipart/form-data">
+    <div class="row">
+        <div class="row mb-2">
+            <label class="col-form-label col-form-label-sm col-2" name="name"  >Customer Name</label>
+            <div class="col-6">
+                <input type="text" class="form-control form-control-sm" name="name" />
+            </div>
+        </div>
+        <div class="row mb-2">
+            <label class="col-form-label col-form-label-sm col-2" name="phone">Phone</label>
+            <div class="col-6">
+                <input type="text" class="form-control form-control-sm" name="phone" />
+            </div>
+        </div>
+        <div class="row mb-2">
+            <label class="col-form-label col-form-label-sm col-2" name="photo">Photo</label>
+            <div class="col-6">
+                <input type="file" class="form-control form-control-sm" name="photo" />
+            </div>
+        </div>
+        <div class="row mb-2">
+            <label class="col-form-label col-form-label-sm col-2" name="bs"  >Business Start</label>
+            <div class="col-6">
+                <input type="date" class="form-control form-control-sm" name="bs" />
+            </div>
+        </div>
+        <div class="row mb-2">
+            <label class="col-form-label col-form-label-sm col-2" name="cr">Credit Detail</label>
+            <div class="col-6">
+                <input type="text" class="form-control form-control-sm" name="cr" />
+            </div>
+        </div>
+
+    </div>
+    
+  
+
+    <div class="text-center">
+        <h1 class="display-4">Deliver System</h1>
+        
+    </div>
+    <table class="table table-bordered table-active">
+        <thead>
+            <tr>
+                <th>Delivery Address</th>
+                <th>Contact Person</th>
+                <th>Phone</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="deliveryAddressContainer">
+            <tr class="deliveryAddressRow" id="deliveryAddressRow_0">
+                <td>
+                    <input type="text" name="DeliveryDetails[0].DeliVeryAddres" class="form-control form-control-sm"  />
+                </td>
+                <td>
+                    <input type="text" name="DeliveryDetails[0].ContactPerson" class="form-control form-control-sm" />
+                </td>
+                <td>
+                    <input type="text" name="DeliveryDetails[0].Phone" class="form-control form-control-sm" />
+                </td>
+                <td>
+                    <button type="button" class="btn btn-outline-primary" id="btnAddDeleveryAddress">Add</button>
+                    <button type="button" class="btn btn-outline-danger" id="btnRemoveDeleveryAddress">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+
+    </table>
+    <hr />
+    <div class="col-6 offset-2">
+        <button type="submit" class="btn btn-outline-success">Save</button>
+    </div>
+</form>
+@section Scripts{
+    <script>
+        let addressCount= 1;
+
+        document.getElementById('btnAddDeleveryAddress').addEventListener('click', function(){
+            const newRow = document.createElement('tr');
+            newRow.classList.contains('deliveryAddressRow');
+            newRow.id= `deliveryAddressRow_${addressCount}`;
+            newRow.innerHTML=`
+
+            <td>
+                    <input type="text" name="DeliveryDetails${[addressCount]}.DeliVeryAddres" class="form-control form-control-sm"  />
+                </td>
+                <td>
+                    <input type="text" name="DeliveryDetails${[addressCount]}.ContactPerson" class="form-control form-control-sm" />
+                </td>
+                <td>
+                    <input type="text" name="DeliveryDetails${[addressCount]}.Phone" class="form-control form-control-sm" />
+                </td>
+                <td>
+                    
+                    <button type="button" class="btn btn-outline-danger" id="btnRemoveDeleveryAddress">Delete</button>
+                </td>
+            
+            `;
+            document.getElementById('deliveryAddressContainer').appendChild(newRow);
+            addressCount++;
+
+        })
+        
+    </script>
+}
